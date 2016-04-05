@@ -1,0 +1,23 @@
+{
+  "name": "text-transform-loader",
+  "version": "1.0.0",
+  "description": "Webpack loader to prepend, append, or otherwise modify the text content of a module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack",
+    "loader"
+  ],
+  "author": "Keith McKnight",
+  "license": "MIT",
+  "dependencies": {
+    "loader-utils": "^0.2.13"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    }
+  }
+}

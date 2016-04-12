@@ -1,0 +1,3 @@
+// prependAppend: prependText
+Hello, world.
+// prependAppend: appendText

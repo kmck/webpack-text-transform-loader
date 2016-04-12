@@ -1,0 +1,3 @@
+// prefer-query: prependText
+Hello, world.
+// prefer-query: appendText

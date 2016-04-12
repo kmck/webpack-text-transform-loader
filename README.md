@@ -1,5 +1,7 @@
 # Text Transform Loader
 
+[![Build Status](https://travis-ci.org/kmck/webpack-text-transform-loader.svg?branch=master)](https://travis-ci.org/kmck/webpack-text-transform-loader)
+
 Webpack loader to prepend, append, or otherwise modify the text content of a module
 
 You can use this for things like injecting headers or footers into your modules BEFORE any other

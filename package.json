@@ -4,7 +4,7 @@
   "description": "Webpack loader to prepend, append, or otherwise modify the text content of a module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp"
   },
   "repository": {
     "type": "git",

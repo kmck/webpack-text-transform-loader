@@ -8,7 +8,7 @@ You can use this for things like injecting headers or footers into your modules 
 loaders do their processing. For example, say you want to prepend all of your `.scss` files with
 the same `@import` function. You can do that!
 
-This version supports [webpack 2.x](https://webpack.js.org/)! If you try it an run into problems, check out the [webpack 1.x]( https://github.com/kmck/webpack-text-transform-loader/tree/webpack-1.x) branch instead.
+This version supports [webpack 2.x](https://webpack.js.org/)! If you try it an run into problems, check out the [webpack 1.x]( https://github.com/kmck/webpack-text-transform-loader/tree/v1.1.1) branch instead.
 
 ### Installation
 

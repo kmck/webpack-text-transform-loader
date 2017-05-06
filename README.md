@@ -1,6 +1,6 @@
 # Text Transform Loader
 
-[![Build Status](https://travis-ci.org/kmck/webpack-text-transform-loader.svg?branch=master)](https://travis-ci.org/kmck/webpack-text-transform-loader)
+[![Build Status](https://travis-ci.org/kmck/webpack-text-transform-loader.svg?branch=v1.1.1)](https://travis-ci.org/kmck/webpack-text-transform-loader)
 
 Webpack loader to prepend, append, or otherwise modify the text content of a module
 
@@ -11,7 +11,7 @@ the same `@import` function. You can do that!
 ### Installation
 
 ```
-npm install --save-dev text-transform-loader
+npm install --save-dev text-transform-loader@1.1.1
 ```
 
 ### Configuration

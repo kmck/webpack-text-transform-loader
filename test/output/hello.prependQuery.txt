@@ -1,0 +1,2 @@
+// prependQuery: prependText
+Hello, world.

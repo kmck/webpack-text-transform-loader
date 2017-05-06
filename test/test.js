@@ -1,53 +1,107 @@
-var assert = require('chai').assert;
-var fs = require('fs');
+/* eslint-disable global-require, import/no-unresolved, import/no-webpack-loader-syntax */
+
+import { assert } from 'chai';
+import fs from 'fs';
 
 // Note: This file gets webpacked, so `fileToLoad` must be root-relative!
-function loadFile(fileToLoad) {
-    return fs.readFileSync(fileToLoad).toString();
-}
+const loadFile = fileToLoad => fs.readFileSync(fileToLoad).toString();
 
-describe('text-transform-loader', function() {
-
-    // Options
-    it('prepends text via options', function() {
-        var content = require('!raw-loader!../?pack=prepend!./cases/hello.txt');
-        assert.equal(content, loadFile('test/cases/hello.prepend.txt'));
+describe('text-transform-loader', () => {
+  describe('loader options', () => {
+    it('prepends text specifeid by prependText option', () => {
+      assert.equal(
+        require('./input/hello.prepend.txt'),
+        loadFile('test/output/hello.prepend.txt'),
+      );
     });
 
-    it('appends text via options', function() {
-        var content = require('!raw-loader!../?pack=append!./cases/hello.txt');
-        assert.equal(content, loadFile('test/cases/hello.append.txt'));
+    it('appends text specified by appendText option', () => {
+      assert.equal(
+        require('./input/hello.append.txt'),
+        loadFile('test/output/hello.append.txt'),
+      );
     });
 
-    it('transforms text via options', function() {
-        var content = require('!raw-loader!../?pack=transform!./cases/hello.txt');
-        assert.equal(content, loadFile('test/cases/hello.transform.txt'));
+    it('transforms text using transformText option', () => {
+      assert.equal(
+        require('./input/hello.transform.txt'),
+        loadFile('test/output/hello.transform.txt'),
+      );
     });
 
-    // Query string
-    it('prepends text via query string', function() {
-        // var queryString = '?prependText=' + encodeURIComponent('// prepend-query: prependText\n');
-        var content = require('!raw-loader!../?prependText=%2F%2F%20prepend-query%3A%20prependText%0A!./cases/hello.txt');
-        assert.equal(content, loadFile('test/cases/hello.prepend-query.txt'));
+    it('works as expected when all options are specified at once', () => {
+      assert.equal(
+        require('./input/hello.allOptions.txt'),
+        loadFile('test/output/hello.allOptions.txt'),
+      );
+    });
+  });
+
+  describe('query parameters', () => {
+    it('prepends text when using ?prependText=', () => {
+      // queryString = '?prependText=' + encodeURIComponent('// prependQuery: prependText\n');
+      assert.equal(
+        require('!raw-loader!../?prependText=%2F%2F%20prependQuery%3A%20prependText%0A!./input/hello.txt'),
+        loadFile('test/output/hello.prependQuery.txt'),
+      );
     });
 
-    it('appends text via query string', function() {
-        // var queryString = '?appendText=' + encodeURIComponent('// append-query: appendText\n');
-        var content = require('!raw-loader!../?appendText=%2F%2F%20append-query%3A%20appendText%0A!./cases/hello.txt');
-        assert.equal(content, loadFile('test/cases/hello.append-query.txt'));
+    it('appends text when using ?appendText=', () => {
+      // queryString = '?appendText=' + encodeURIComponent('// appendQuery: appendText\n');
+      assert.equal(
+        require('!raw-loader!../?appendText=%2F%2F%20appendQuery%3A%20appendText%0A!./input/hello.txt'),
+        loadFile('test/output/hello.appendQuery.txt'),
+      );
     });
 
-    // Advanced behavior
-    it('passes query params to transformText', function() {
-        // var queryString = '?pack=transformQuery&dog=' + encodeURIComponent('franny');
-        var content = require('!raw-loader!../?pack=transformQuery&dog=franny!./cases/hello.txt');
-        assert.equal(content, loadFile('test/cases/hello.transform-query.txt'));
+    describe('option packs', () => {
+      it('prepends text specified by prependText option', () => {
+        assert.equal(
+          require('!raw-loader!../?pack=prepend!./input/hello.txt'),
+          loadFile('test/output/hello.prepend.txt'),
+        );
+      });
+
+      it('appends text specified by appendText option', () => {
+        assert.equal(
+          require('!raw-loader!../?pack=append!./input/hello.txt'),
+          loadFile('test/output/hello.append.txt'),
+        );
+      });
+
+      it('transforms text using transformText option', () => {
+        assert.equal(
+          require('!raw-loader!../?pack=transform!./input/hello.txt'),
+          loadFile('test/output/hello.transform.txt'),
+        );
+      });
+
+      it('works as expected when all options are specified at once', () => {
+        assert.equal(
+          require('!raw-loader!../?pack=allOptions!./input/hello.txt'),
+          loadFile('test/output/hello.allOptions.txt'),
+        );
+      });
+    });
+  });
+
+  describe('advanced options', () => {
+    it('passes query params to transformText', () => {
+      // var queryString = '?pack=transformQuery&dog=' + encodeURIComponent('franny');
+      assert.equal(
+        require('!raw-loader!../?pack=transformQuery&dog=franny!./input/hello.txt'),
+        loadFile('test/output/hello.transformQuery.txt'),
+      );
     });
 
-    it('chooses query string over options', function() {
-        // var queryString = '?pack=prependAppend&prependText=' + encodeURIComponent('// prefer-query: prependText\n') + '&appendText=' + encodeURIComponent('// prefer-query: appendText\n');
-        var content = require('!raw-loader!../?pack=prependAppend&prependText=%2F%2F%20prefer-query%3A%20prependText%0A&appendText=%2F%2F%20prefer-query%3A%20appendText%0A!./cases/hello.txt');
-        assert.equal(content, loadFile('test/cases/hello.prefer-query.txt'));
+    it('chooses query string over options', () => {
+      // queryString = '?pack=prependAppend' +
+      //   '&prependText=' + encodeURIComponent('// preferQuery: prependText\n') +
+      //   '&appendText=' + encodeURIComponent('// preferQuery: appendText\n');
+      assert.equal(
+        require('!raw-loader!../?pack=prependAppend&prependText=%2F%2F%20preferQuery%3A%20prependText%0A&appendText=%2F%2F%20preferQuery%3A%20appendText%0A!./input/hello.txt'),
+        loadFile('test/output/hello.preferQuery.txt'),
+      );
     });
-
+  });
 });

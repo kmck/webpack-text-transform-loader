@@ -1,6 +1,6 @@
 {
   "name": "text-transform-loader",
-  "version": "2.0.0-beta",
+  "version": "2.0.0",
   "description": "Webpack loader to prepend, append, or otherwise modify the text content of a module",
   "main": "lib/text-transform-loader.js",
   "scripts": {
@@ -38,7 +38,7 @@
     "eslint-plugin-import": "^2.2.0",
     "mocha": "^3.3.0",
     "raw-loader": "^0.5.1",
-    "webpack": "^2.5.0",
+    "webpack": "^2.5.1",
     "webpack-stream": "^3.1.0"
   },
   "files": [
